@@ -458,18 +458,18 @@ public class DateTimeUtils {
    *          The month of the year (1 = January, ..., 12 = December)
    * 
    * @param dayOfWeek
-   *          The DayOfWeek to be returned. If null, then whatever day
-   *          that is the first day is returned.
+   *          The DayOfWeek to be returned. Not null.
    * 
    * @return The LocalDate object.
    */
-  public LocalDate firstDay(int year, int monthOfYear, DayOfWeek dayOfWeek) {
+  public LocalDate computeFirstDay(int year, int monthOfYear, DayOfWeek dayOfWeek) {
     LocalDate ret = LocalDate.of(year, monthOfYear, 1);// default to 1st calendar day of the month/year
-    if (dayOfWeek != null) {
-      ret = ret.with(TemporalAdjusters.firstInMonth(dayOfWeek));
-    } else {
-      ret = ret.with(TemporalAdjusters.firstDayOfMonth());
+
+    if (dayOfWeek == null) {
+      throw new IllegalArgumentException("DayOfWeek argument cannot be null!");
     }
+
+    ret = ret.with(TemporalAdjusters.firstInMonth(dayOfWeek));
     return ret;
   }
 
@@ -487,18 +487,18 @@ public class DateTimeUtils {
    *          The month of the year (1 = January, ..., 12 = December)
    * 
    * @param dayOfWeek
-   *          The DayOfWeek to be returned. If null, then whatever day
-   *          that is the last day is returned.
+   *          The DayOfWeek to be returned. Not null.
    * 
    * @return The LocalDate object.
    */
-  public LocalDate lastDay(int year, int monthOfYear, DayOfWeek dayOfWeek) {
+  public LocalDate computeLastDay(int year, int monthOfYear, DayOfWeek dayOfWeek) {
     LocalDate ret = LocalDate.of(year, monthOfYear, 1);// default to 1st calendar day of the month/year
-    if (dayOfWeek != null) {
-      ret = ret.with(TemporalAdjusters.lastInMonth(dayOfWeek));
-    } else {
-      ret = ret.with(TemporalAdjusters.lastDayOfMonth());
+
+    if (dayOfWeek == null) {
+      throw new IllegalArgumentException("DayOfWeek argument cannot be null!");
     }
+
+    ret = ret.with(TemporalAdjusters.lastInMonth(dayOfWeek));
     return ret;
   }
 
@@ -523,7 +523,7 @@ public class DateTimeUtils {
    * 
    * @return The LocalDate object.
    */
-  public LocalDate nthDayOfWeekIn(int year, int monthOfYear, int weekOrdinal, DayOfWeek dayOfWeek) {
+  public LocalDate computeNthDayOfWeekIn(int year, int monthOfYear, int weekOrdinal, DayOfWeek dayOfWeek) {
     LocalDate ret = LocalDate.of(year, monthOfYear, 1);// default to 1st calendar day of the month/year
 
     if (dayOfWeek == null) {
@@ -545,7 +545,7 @@ public class DateTimeUtils {
    * 
    * @return The LocalDate object.
    */
-  public LocalDate presidentialElectionDayUsa(int year) {
+  public LocalDate computePresidentialElectionDayUsa(int year) {
     // Make sure it's an election year - Naive approach?
     if (year % 4 != 0) {
       throw new IllegalArgumentException("The specified year: " + year + " is not a U.S. Presidential election year");
@@ -567,7 +567,7 @@ public class DateTimeUtils {
    * 
    * @return The LocalDate object.
    */
-  public LocalDate nDaysAfter(long numberOfDays, LocalDate referenceDate) {
+  public LocalDate computeNDaysAfter(long numberOfDays, LocalDate referenceDate) {
     // That was easy. Thanks, Java 8 Time API!
     return referenceDate.plusDays(numberOfDays);
   }

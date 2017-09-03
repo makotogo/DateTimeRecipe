@@ -485,46 +485,45 @@ public class DateTimeUtilsTest {
 
   // * Computations
 
-  @Test
-  @DisplayName("The first Monday in September 2021 is 9/6/2021")
-  public void firstMondayInSeptember2021() {
-    LocalDate expectedLd = LocalDate.of(2021, 9, 6);
-    assertEquals(expectedLd, classUnderTest.firstDay(2021, 9, DayOfWeek.MONDAY));
-  }
+  @Nested
+  @DisplayName("Computations")
+  public class Computations {
 
-  @Test
-  @DisplayName("The last Monday in September 2021 is 9/27/2021")
-  public void lastMondayInSeptember2021() {
-    LocalDate expectedLd = LocalDate.of(2021, 9, 27);
-    assertEquals(expectedLd, classUnderTest.lastDay(2021, 9, DayOfWeek.MONDAY));
-  }
+    @Test
+    @DisplayName("The first Monday in September 2021 is 9/6/2021")
+    public void firstMondayInSeptember2021() {
+      LocalDate expectedLd = LocalDate.of(2021, 9, 6);
+      assertEquals(expectedLd, classUnderTest.computeFirstDay(2021, 9, DayOfWeek.MONDAY));
+    }
 
-  @Test
-  @DisplayName("The third Wednesday in July 2018 is 7/18/2018")
-  public void thirdWednesdayInJuly2018() {
-    LocalDate expectedLd = LocalDate.of(2018, 7, 18);
-    assertEquals(expectedLd, classUnderTest.nthDayOfWeekIn(2018, 7, 3, DayOfWeek.WEDNESDAY));
-  }
+    @Test
+    @DisplayName("The last Monday in September 2021 is 9/27/2021")
+    public void lastMondayInSeptember2021() {
+      LocalDate expectedLd = LocalDate.of(2021, 9, 27);
+      assertEquals(expectedLd, classUnderTest.computeLastDay(2021, 9, DayOfWeek.MONDAY));
+    }
 
-  @Test
-  @DisplayName("The next Presidential election day in the USA is 11/3/2020")
-  public void presidentialElectionDayUSA2020() {
-    LocalDate expectedLd = LocalDate.of(2020, 11, 3);
-    assertEquals(expectedLd, classUnderTest.presidentialElectionDayUsa(2020));
-  }
+    @Test
+    @DisplayName("The third Wednesday in July 2018 is 7/18/2018")
+    public void thirdWednesdayInJuly2018() {
+      LocalDate expectedLd = LocalDate.of(2018, 7, 18);
+      assertEquals(expectedLd, classUnderTest.computeNthDayOfWeekIn(2018, 7, 3, DayOfWeek.WEDNESDAY));
+    }
 
-  @Test
-  @DisplayName("In 2024, the USA Presidential election day is 11/5/2020")
-  public void presidentialElectionDayUSA2024() {
-    LocalDate expectedLd = LocalDate.of(2024, 11, 5);
-    assertEquals(expectedLd, classUnderTest.presidentialElectionDayUsa(2024));
-  }
+    @Test
+    @DisplayName("The next Presidential election day in the USA is 11/3/2020")
+    public void presidentialElectionDayUSA2020() {
+      LocalDate expectedLd = LocalDate.of(2020, 11, 3);
+      assertEquals(expectedLd, classUnderTest.computePresidentialElectionDayUsa(2020));
+    }
 
-  @Test
-  @DisplayName("90 days after January 1, 2018 is 4/1/2018")
-  public void ninetyDaysAfter20180101() {
-    LocalDate expectedLd = LocalDate.of(2018, 4, 1);
-    assertEquals(expectedLd, classUnderTest.nDaysAfter(90, LocalDate.of(2018, 1, 1)));
+    @Test
+    @DisplayName("90 days after January 1, 2018 is 4/1/2018")
+    public void ninetyDaysAfter20180101() {
+      LocalDate expectedLd = LocalDate.of(2018, 4, 1);
+      assertEquals(expectedLd, classUnderTest.computeNDaysAfter(90, LocalDate.of(2018, 1, 1)));
+    }
+
   }
 
 }
